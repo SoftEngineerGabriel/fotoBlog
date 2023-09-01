@@ -9,11 +9,12 @@
 :root {
     font-size: 62.5%;
 
-    --color-base-white:#ffffff;
-    --color-base-gray-100:#f5f5f5;
-    --color-base-gray-300:#8d8d99;
-    --color-base-gray-500:#3d3d3d;
-    --color-base-gray-900:#202024;
+    --hue: 0;
+    --color-base-white:hsl(0, 0%, 100%);
+    --color-base-gray-100:hsl(0, 0%, 82%);
+    --color-base-gray-300:hsl(var(--hue), 6%, 57%);
+    --color-base-gray-500:hsl(0, 0%, 24%);
+    --color-base-gray-900:hsl(var(--hue), 60%, 3%);
 
 }
 
@@ -114,7 +115,7 @@ main div h2{
 
 .card{
     width: 39rem;
-    background-color: #fff;
+    background-color: var(--color-base-white);
     border-radius: 7.564px;
 
     overflow: hidden;
@@ -125,16 +126,24 @@ main div h2{
     line-height: 160%;
 }
 
+.card img{
+    transition-property: all;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
 .card img:hover{
     filter: hue-rotate(7deg) contrast(101%) saturate(200%);
-
+    transform: scale(1.1) rotate(-2deg);
 }
 
 .info{
     padding: 2.2rem;
     display: block;
     gap: .8rem;
-
+    background-color: var(--color-base-gray-100);
+    z-index: 1;
+    position: relative;
 }
 
 span{
@@ -146,11 +155,42 @@ span{
     font-style: normal;
     font-weight: 400;
     line-height: 160%;
-    ;
 }
 
 footer p {
     text-align: center;
     padding: 1.6rem;
     font-weight: 600;
+}
+
+header{
+    --startY: -100%;
+    animation: move .2s;
+}
+
+footer{
+    --startY: 100%;
+    animation: move .2s;
+}
+
+@keyframes move {
+    from{
+        transform: translateY(var(--startY));
+    }
+}
+
+.card{
+    --delay:.4s;
+    animation: apper .4s var(--delay) backwards;
+}
+
+@keyframes apper {
+    0%{
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    50%{
+        transform: scale(1.2);
+    }
 }
